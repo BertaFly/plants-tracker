@@ -1,0 +1,555 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+#root {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.nav-tabs button {
+  flex: 1;
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs button.active {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.nav-tabs button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.plant-list {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.list-header h1 {
+  color: #2d3748;
+  font-size: 2rem;
+}
+
+.list-header button {
+  background: #48bb78;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.list-header button:hover {
+  background: #38a169;
+  transform: translateY(-1px);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+.plants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.plant-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.plant-card:hover {
+  transform: translateY(-2px);
+}
+
+.plant-info h3 {
+  color: #2d3748;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+}
+
+.plant-info .species {
+  color: #4a5568;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+.plant-info .location {
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+.care-info {
+  margin: 16px 0;
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+}
+
+.care-item {
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.plant-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.plant-actions button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.water-btn {
+  background: #3182ce;
+  color: white;
+}
+
+.water-btn:hover {
+  background: #2c5aa0;
+}
+
+.fertilize-btn {
+  background: #38a169;
+  color: white;
+}
+
+.fertilize-btn:hover {
+  background: #2f855a;
+}
+
+.treatment-btn {
+  background: #d53f8c;
+  color: white;
+}
+
+.treatment-btn:hover {
+  background: #b83280;
+}
+
+.edit-btn, .delete-btn {
+  background: #e2e8f0;
+  color: #4a5568;
+  min-width: 36px;
+}
+
+.edit-btn:hover {
+  background: #cbd5e0;
+}
+
+.delete-btn:hover {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.plant-form {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.plant-form h2 {
+  margin-bottom: 24px;
+  color: #2d3748;
+}
+
+.plant-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.plant-form input:focus {
+  outline: none;
+  border-color: #3182ce;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.form-actions button[type="button"] {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.form-actions button[type="submit"] {
+  background: #3182ce;
+  color: white;
+}
+
+.form-actions button:hover {
+  transform: translateY(-1px);
+}
+
+.photo-upload {
+  margin-bottom: 16px;
+}
+
+.photo-label {
+  display: block;
+  cursor: pointer;
+  border: 2px dashed #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.photo-label:hover {
+  border-color: #3182ce;
+  background: #f7fafc;
+}
+
+.photo-placeholder {
+  color: #718096;
+  font-size: 1.1rem;
+  padding: 20px;
+}
+
+.photo-preview {
+  width: 100%;
+  max-width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.plant-photo {
+  margin-bottom: 12px;
+}
+
+.plant-photo img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.calendar {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.calendar-header h2 {
+  color: #2d3748;
+  font-size: 1.8rem;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.calendar-nav button {
+  background: #3182ce;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.calendar-nav button:hover {
+  background: #2c5aa0;
+  transform: scale(1.1);
+}
+
+.calendar-nav h3 {
+  color: #2d3748;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.calendar-table-container {
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  min-width: 800px;
+}
+
+.calendar-table th,
+.calendar-table td {
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.plant-column {
+  width: 200px;
+  background: #f7fafc;
+  font-weight: 600;
+  color: #2d3748;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+}
+
+.date-column {
+  width: 60px;
+  background: #f7fafc;
+  padding: 8px 4px;
+}
+
+.date-column.today {
+  background: #e6fffa;
+}
+
+.date-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.day-number {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2d3748;
+}
+
+.day-name {
+  font-size: 0.7rem;
+  color: #718096;
+  text-transform: uppercase;
+}
+
+.plant-cell {
+  background: #f7fafc;
+  padding: 12px;
+  position: sticky;
+  left: 0;
+  z-index: 5;
+}
+
+.plant-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+
+.plant-thumb {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.plant-name {
+  font-weight: 500;
+  color: #2d3748;
+  font-size: 0.9rem;
+}
+
+.date-cell {
+  padding: 4px;
+  background: white;
+  transition: background-color 0.3s ease;
+}
+
+.date-cell:hover {
+  background: #f7fafc;
+}
+
+.care-dropdown {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.care-dropdown:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2);
+}
+
+.care-dropdown.empty {
+  background: #f7fafc;
+  color: #718096;
+}
+
+.care-dropdown.water {
+  background: #bee3f8;
+  color: #1a365d;
+  border-color: #3182ce;
+}
+
+.care-dropdown.fertilize {
+  background: #c6f6d5;
+  color: #1a202c;
+  border-color: #38a169;
+}
+
+.care-dropdown.treatment {
+  background: #fbb6ce;
+  color: #1a202c;
+  border-color: #d53f8c;
+}
+
+.care-dropdown.water-fertilize {
+  background: linear-gradient(45deg, #bee3f8 50%, #c6f6d5 50%);
+  color: #1a202c;
+  border-color: #805ad5;
+}
+
+.care-dropdown.water-treatment {
+  background: linear-gradient(45deg, #bee3f8 50%, #fbb6ce 50%);
+  color: #1a202c;
+  border-color: #805ad5;
+}
+
+.care-dropdown.fertilize-treatment {
+  background: linear-gradient(45deg, #c6f6d5 50%, #fbb6ce 50%);
+  color: #1a202c;
+  border-color: #805ad5;
+}
+
+.care-dropdown.all {
+  background: linear-gradient(120deg, #bee3f8 33%, #c6f6d5 33%, #c6f6d5 66%, #fbb6ce 66%);
+  color: #1a202c;
+  border-color: #4c51bf;
+}
+
+@media (max-width: 768px) {
+  .plants-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .calendar-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .plant-selector select {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .day {
+    min-height: 80px;
+  }
+  
+  .nav-tabs {
+    flex-direction: column;
+  }
+}
